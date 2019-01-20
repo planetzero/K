@@ -75,7 +75,7 @@ export class MarketTradesComponent implements OnInit {
     this.gridOptions.api.forEachNode((node: RowNode) => {
       if (Math.abs(trade.time - node.data.time) > 3600000)
         this.gridOptions.api.updateRowData({remove:[node.data]});
-      else if (Math.abs(trade.time - node.data.time) > 7000)
+      else if (Math.abs(trade.time - node.data.time) > 200)
         node.setData(Object.assign(node.data, {recent: false}));
     });
   }
