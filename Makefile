@@ -150,7 +150,7 @@ Win32: src/$(KSRC)/$(KSRC).cxx
 	  -static -lstdc++ -lgcc -lwldap32 -lws2_32
 
 download:
-	curl -L https://github.com/planetzero/K/archive/K-latest.tar.gz | tar xz
+	curl -L https://github.com/planetzero/K/archive/latest.tar.gz | tar xz
 	@$(MAKE) system_install -s
 	@test -n "`ls *.sh 2>/dev/null`" || (cp etc/K.sh.dist K.sh && chmod +x K.sh)
 	@$(MAKE) upgrade_old_installations -s
@@ -301,19 +301,19 @@ release:
 ifdef KALL
 	unset KALL $(foreach chost,$(CARCH),&& $(MAKE) $@ CHOST=$(chost))
 else
-	@tar -cvzf K-latest.tar.gz $(KLOCAL)/bin/K-* $(KLOCAL)/lib/K-*                                   \
+	@tar -cvzf latest.tar.gz $(KLOCAL)/bin/K-* $(KLOCAL)/lib/K-*                                   \
 	$(shell test -n "`echo $(CHOST) | grep mingw32`" && echo $(KLOCAL)/bin/*dll || :)                                                     \
 	LICENSE COPYING README.md Makefile doc/[^html]* etc test --exclude src/*/node_modules src                                             \
 	&& curl -s -n -H "Content-Type:application/octet-stream" -H "Authorization: token ${KRELEASE}"                                        \
-	--data-binary "@$(PWD)/K-latest.tar.gz"                                                          \
+	--data-binary "@$(PWD)/latest.tar.gz"                                                          \
 	"https://uploads.github.com/repos/planetzero/K/releases/$(shell curl -s                                                  \
 	https://api.github.com/repos/planetzero/K/releases/latest | grep id | head -n1 | cut -d ' ' -f4 | cut -d ',' -f1         \
-	)/assets?name=K-latest.tar.gz"                                                                   \
-	&& rm K-latest.tar.gz && echo && echo DONE K-latest.tar.gz
+	)/assets?name=latest.tar.gz"                                                                   \
+	&& rm latest.tar.gz && echo && echo DONE latest.tar.gz
 endif
 
-md5: src
-	find src -type f -exec md5sum "{}" + > src.md5
+#md5: src
+#	find src -type f -exec md5sum "{}" + > src.md5
 
 asandwich:
 	@test `whoami` = 'root' && echo OK || echo make it yourself!
