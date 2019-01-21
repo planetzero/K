@@ -200,7 +200,7 @@ docker: packages download
 
 reinstall:
 	test -d .git && ((test -n "`git diff`" && (echo && echo !!Local changes will be lost!! press CTRL-C to abort. && echo && sleep 5) || :) \
-	&& git fetch && git merge FETCH_HEAD || (git reset FETCH_HEAD && git checkout .)) || curl https://raw.githubusercontent.com/ctubio/Krypto-trading-bot/master/Makefile > Makefile
+	&& git fetch && git merge FETCH_HEAD || (git reset FETCH_HEAD && git checkout .)) || curl https://raw.githubusercontent.com/planetzero/K/master/Makefile > Makefile
 	@$(MAKE) install
 	#@$(MAKE) restartall
 	@echo && echo ..done! Please restart any running instance and also refresh the UI if is currently opened in your browser.
